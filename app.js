@@ -1,4 +1,5 @@
 // Dilo landing — sin dependencias, sin trackers.
+document.documentElement.classList.add("js");
 
 // ── Botón de descarga según OS ──────────────────────────────
 const RELEASES = "https://github.com/aacontn/dilo/releases/latest";
@@ -7,13 +8,34 @@ const os = /Mac/i.test(ua) ? "macOS" : /Win/i.test(ua) ? "Windows" : /Linux/i.te
 
 for (const id of ["download-btn", "download-btn-2"]) {
   const btn = document.getElementById(id);
-  if (btn && os) btn.textContent = `Descargar para ${os}`;
-  if (btn) btn.href = RELEASES;
+  if (!btn) continue;
+  btn.href = RELEASES;
+  if (os) btn.firstChild.textContent = `Descargar gratis para ${os}\n`;
 }
-const osNote = document.getElementById("os-note");
-if (osNote && os) {
-  const others = ["macOS", "Windows", "Linux"].filter((o) => o !== os).join(" · ");
-  osNote.textContent = `También para ${others}`;
+const btnSub = document.getElementById("btn-sub");
+if (btnSub && os) {
+  const others = ["macOS", "Windows", "Linux"].filter((o) => o !== os).join(" y ");
+  btnSub.textContent = `~17 MB · también para ${others}`;
+}
+
+// ── Reveal on scroll ────────────────────────────────────────
+const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const revealables = document.querySelectorAll(".reveal");
+if (reduced || !("IntersectionObserver" in window)) {
+  revealables.forEach((el) => el.classList.add("in"));
+} else {
+  const io = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) {
+          e.target.classList.add("in");
+          io.unobserve(e.target);
+        }
+      }
+    },
+    { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
+  );
+  revealables.forEach((el) => io.observe(el));
 }
 
 // ── Demo: la página se dicta sola ───────────────────────────
@@ -25,21 +47,21 @@ const PHRASES = [
 ];
 
 const typed = document.getElementById("typed");
-const wave = document.getElementById("wave");
-const pill = document.getElementById("demo-pill");
+const pill = document.getElementById("pill");
+const send = document.getElementById("ed-send");
+const input = document.querySelector(".ed-input");
 
-const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 async function typeOut(text) {
   for (let i = 1; i <= text.length; i++) {
     typed.textContent = text.slice(0, i);
-    await sleep(text[i - 1] === " " ? 34 : 18 + Math.random() * 26);
+    await sleep(text[i - 1] === " " ? 30 : 16 + Math.random() * 24);
   }
 }
 
 async function demoLoop() {
-  if (!typed || !wave || !pill) return;
+  if (!typed || !pill) return;
   if (reduced) {
     typed.textContent = PHRASES[0];
     return;
@@ -48,16 +70,22 @@ async function demoLoop() {
   // eslint-disable-next-line no-constant-condition
   while (true) {
     typed.textContent = "";
-    // 1) "apretaste el atajo": pastilla roja + onda viva
+    send?.classList.remove("fire");
+    // 1) apretaste el atajo: la pastilla escucha
     pill.classList.add("rec");
-    wave.classList.add("on");
+    input?.classList.add("glow");
     await sleep(1900);
-    // 2) "soltaste": deja de grabar y el texto se escribe
+    // 2) soltaste: se escribe el dictado
     pill.classList.remove("rec");
-    wave.classList.remove("on");
-    await sleep(250);
+    await sleep(220);
     await typeOut(PHRASES[i % PHRASES.length]);
-    await sleep(2600);
+    // 3) envío automático
+    await sleep(420);
+    send?.classList.add("fire");
+    await sleep(1900);
+    send?.classList.remove("fire");
+    input?.classList.remove("glow");
+    await sleep(500);
     i++;
   }
 }
