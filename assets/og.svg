@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#0D1117"/>
+  <!-- glow mango -->
+  <ellipse cx="1030" cy="40" rx="480" ry="260" fill="#FF9E1B" opacity="0.07"/>
+  <ellipse cx="80" cy="560" rx="420" ry="240" fill="#2EE6A8" opacity="0.05"/>
+  <!-- kicker -->
+  <text x="90" y="150" font-family="Menlo, monospace" font-size="26" fill="#8b877f">$ dilo --para vibe-coders --idioma es</text>
+  <!-- headline -->
+  <text x="86" y="265" font-family="Helvetica Neue, Arial, sans-serif" font-weight="700" font-size="84" letter-spacing="-3" fill="#F7F2EA">Deja de tipear</text>
+  <text x="86" y="360" font-family="Helvetica Neue, Arial, sans-serif" font-weight="700" font-size="84" letter-spacing="-3" fill="#F7F2EA">tus prompts.</text>
+  <text x="86" y="480" font-family="Helvetica Neue, Arial, sans-serif" font-weight="700" font-size="110" letter-spacing="-4" fill="#FF9E1B">Dilo</text>
+  <rect x="330" y="392" width="26" height="88" rx="6" fill="#FF9E1B"/>
+  <!-- wave -->
+  <g fill="#2EE6A8">
+    <rect x="90" y="540" width="10" height="26" rx="4" opacity="0.9"/>
+    <rect x="108" y="530" width="10" height="46" rx="4" opacity="0.75"/>
+    <rect x="126" y="522" width="10" height="62" rx="4" fill="#FF9E1B"/>
+    <rect x="144" y="534" width="10" height="38" rx="4" opacity="0.85"/>
+    <rect x="162" y="528" width="10" height="50" rx="4" opacity="0.6"/>
+    <rect x="180" y="540" width="10" height="26" rx="4" fill="#FF9E1B" opacity="0.9"/>
+    <rect x="198" y="536" width="10" height="34" rx="4" opacity="0.8"/>
+  </g>
+  <text x="240" y="566" font-family="Menlo, monospace" font-size="24" fill="#8b877f">dictado offline · gratis · open source · en español</text>
+</svg>

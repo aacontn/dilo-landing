@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dilo — Deja de tipear tus prompts</title>
+  <meta name="description" content="Dictado por voz offline para los que programan con IA. Aprieta, habla, suelta: tu prompt aparece escrito en Cursor, Claude o el terminal. Gratis, open source y en español." />
+  <meta property="og:title" content="Dilo — Deja de tipear tus prompts" />
+  <meta property="og:description" content="Dictado por voz offline, gratis y en español, para los que programan con IA. Ni un byte de tu voz sale de tu compu." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/og.png" />
+  <meta name="theme-color" content="#0D1117" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230D1117'/%3E%3Crect x='18' y='16' width='9' height='32' rx='3' fill='%23FF9E1B'/%3E%3Crect x='34' y='26' width='4' height='12' rx='2' fill='%232EE6A8'/%3E%3Crect x='41' y='21' width='4' height='22' rx='2' fill='%232EE6A8'/%3E%3Crect x='48' y='29' width='4' height='6' rx='2' fill='%232EE6A8'/%3E%3C/svg%3E" />
+  <link rel="preload" href="assets/fonts/SpaceGrotesk-700.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/JetBrainsMono-400.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a class="wordmark" href="#top" aria-label="Dilo, inicio">dilo<span class="caret">▌</span></a>
+    <nav class="topnav" aria-label="Secciones">
+      <a href="#como-funciona">Cómo funciona</a>
+      <a href="#modelos">Modelos</a>
+      <a href="#faq">FAQ</a>
+      <a class="gh" href="https://github.com/aacontn/dilo" rel="noopener">GitHub ↗</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <!-- ══════════ HERO ══════════ -->
+    <section class="hero">
+      <p class="kicker" aria-hidden="true">$ dilo <span class="k-flag">--para</span> vibe-coders <span class="k-flag">--idioma</span> es</p>
+      <h1>
+        <span class="h1-line">Deja de tipear</span>
+        <span class="h1-line">tus prompts.</span>
+        <span class="h1-say">Dilo<span class="caret caret-big">▌</span></span>
+      </h1>
+      <p class="sub">
+        Dictado por voz para los que programan con IA. Aprietas un atajo, hablas,
+        y tu prompt aparece escrito en <strong>Cursor</strong>, <strong>Claude Code</strong>
+        o el <strong>terminal</strong>. Todo en tu compu: <em>ni un byte de tu voz sale de tu máquina.</em>
+      </p>
+      <div class="cta-row">
+        <a id="download-btn" class="btn btn-primary" href="https://github.com/aacontn/dilo/releases/latest">Descargar Dilo</a>
+        <a class="btn btn-ghost" href="https://github.com/aacontn/dilo" rel="noopener">Ver el código</a>
+      </div>
+      <p class="cta-note"><span id="os-note">macOS · Windows · Linux</span> — gratis, open source (MIT), sin cuenta.</p>
+
+      <!-- Demo: la página se dicta sola -->
+      <div class="demo" role="img" aria-label="Demostración: mantienes apretado el atajo, hablas y el texto aparece escrito en tu editor.">
+        <div class="demo-bar">
+          <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+          <span class="demo-title">cursor — chat</span>
+          <span class="demo-pill" id="demo-pill"><span class="pill-mic"></span><kbd>⌥</kbd><kbd>espacio</kbd></span>
+        </div>
+        <div class="demo-body">
+          <div class="wave" id="wave" aria-hidden="true">
+            <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+          </div>
+          <p class="demo-line"><span class="demo-prompt">›</span> <span id="typed"></span><span class="caret caret-demo" id="demo-caret">▌</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ CÓMO FUNCIONA ══════════ -->
+    <section class="steps" id="como-funciona">
+      <h2><span class="h2-hash">##</span> Cómo funciona</h2>
+      <ol class="steps-grid">
+        <li>
+          <span class="step-n">01</span>
+          <h3>Aprieta</h3>
+          <p>Mantén el atajo global: <kbd>⌥</kbd><kbd>espacio</kbd> en Mac, <kbd>ctrl</kbd><kbd>espacio</kbd> en Windows y Linux. Funciona sobre cualquier app.</p>
+        </li>
+        <li>
+          <span class="step-n">02</span>
+          <h3>Habla</h3>
+          <p>Di tu prompt como se lo dirías a un colega. Una pastilla discreta te muestra que está escuchando — y nada más.</p>
+        </li>
+        <li>
+          <span class="step-n">03</span>
+          <h3>Suelta</h3>
+          <p>El texto aparece donde estaba tu cursor. Ya está escrito. Hablar es ~3× más rápido que tipear.</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- ══════════ FLOW ══════════ -->
+    <section class="flow">
+      <h2><span class="h2-hash">##</span> Hecho para tu flow</h2>
+      <div class="flow-grid">
+        <article class="card">
+          <h3>Cursor &amp; Claude Code</h3>
+          <p>Los prompts largos son los buenos, pero nadie quiere tipearlos. Dicta el contexto completo y deja que la IA trabaje.</p>
+        </article>
+        <article class="card">
+          <h3>Terminal &amp; scripts</h3>
+          <p><code>dilo --toggle-transcription</code> desde tu window manager, un keybinding de tmux o cualquier script. CLI de primera clase.</p>
+        </article>
+        <article class="card">
+          <h3>Post-proceso con IA</h3>
+          <p>Opcional: pasa tu dictado por cualquier API compatible con OpenAI o Apple Intelligence. "Formatéalo como conventional commit" y listo.</p>
+        </article>
+        <article class="card">
+          <h3>Envío automático</h3>
+          <p>Actívalo y tu dictado se manda solo con Enter. Dicta, suelta, y la respuesta ya viene en camino.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ══════════ PRIVACIDAD ══════════ -->
+    <section class="privacy">
+      <p class="privacy-big">Tu voz es tuya.<br />El modelo corre <span class="hl">en tu compu</span>, no en la nube de nadie.</p>
+      <ul class="privacy-list">
+        <li><span class="tick">✓</span> 100% offline — funciona en un avión</li>
+        <li><span class="tick">✓</span> Sin cuenta, sin telemetría, sin "plan pro"</li>
+        <li><span class="tick">✓</span> Open source de verdad: MIT, fork de <a href="https://github.com/cjpais/Handy" rel="noopener">Handy</a></li>
+        <li><span class="tick">✓</span> Liviano: libera la RAM sola cuando no dictas (~60–80 MB en reposo)</li>
+      </ul>
+    </section>
+
+    <!-- ══════════ MODELOS ══════════ -->
+    <section class="models" id="modelos">
+      <h2><span class="h2-hash">##</span> Elige tu modelo (Dilo te recomienda según tu RAM)</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Modelo</th><th>Español</th><th>Descarga</th><th>RAM dictando</th><th>Ideal para</th></tr>
+          </thead>
+          <tbody>
+            <tr class="rec"><td>Nemotron Streaming 3.5 <span class="badge">recomendado</span></td><td>✅ +27 idiomas</td><td>751 MB</td><td>~1.1–1.4 GB</td><td>Ver el texto en vivo mientras hablas</td></tr>
+            <tr><td>Canary 180M Flash</td><td>✅ es·en·de·fr</td><td>218 MB</td><td>~0.4–0.5 GB</td><td>Compus con ≤8 GB de RAM</td></tr>
+            <tr><td>Parakeet V3</td><td>✅ 25 idiomas</td><td>740 MB</td><td>~1.1–1.4 GB</td><td>Precisión sin streaming</td></tr>
+            <tr><td>Cohere Transcribe</td><td>✅ 14 idiomas</td><td>1.8 GB</td><td>~2.5 GB</td><td>Máxima precisión, máquinas potentes</td></tr>
+            <tr><td>Whisper Medium</td><td>✅ 99 idiomas</td><td>832 MB</td><td>~1.5 GB</td><td>Idiomas poco comunes</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="models-note">Todos corren local. Los recomendados van bien en CPU pura — no necesitas GPU.</p>
+    </section>
+
+    <!-- ══════════ FAQ ══════════ -->
+    <section class="faq" id="faq">
+      <h2><span class="h2-hash">##</span> FAQ</h2>
+      <details>
+        <summary>¿De verdad es gratis?</summary>
+        <p>Sí. Licencia MIT, sin cuenta, sin límites, sin plan pro escondido. Es open source: si quieres, míralo por dentro y contribuye.</p>
+      </details>
+      <details>
+        <summary>¿A dónde va mi voz?</summary>
+        <p>A ningún lado. El audio se procesa con un modelo que corre en tu computador y se descarta. Sin internet también funciona — pruébalo en modo avión.</p>
+      </details>
+      <details>
+        <summary>¿Qué tan bien entiende el español?</summary>
+        <p>Los modelos recomendados están entrenados con español real (y aguantan spanglish técnico: "el deploy", "los hooks"). Además puedes agregar tus palabras propias — nombres, siglas, jerga de tu equipo — para que no se las invente.</p>
+      </details>
+      <details>
+        <summary>¿Por qué mi sistema me advierte al instalarlo?</summary>
+        <p>Porque los binarios van sin firma de código todavía (el certificado de Apple cuesta US$99/año — está en el roadmap). En macOS: clic derecho → Abrir. En Windows: Más información → Ejecutar de todas formas. El código es público, puedes compilarlo tú mismo si prefieres.</p>
+      </details>
+      <details>
+        <summary>¿Qué necesita mi compu?</summary>
+        <p>Con 8 GB de RAM y el modelo Canary (218 MB) andas perfecto. Con 16 GB, Nemotron te muestra el texto en vivo mientras hablas. macOS (Apple Silicon o Intel), Windows 10/11 y Linux.</p>
+      </details>
+      <details>
+        <summary>¿Sirve para dictar código?</summary>
+        <p>Para prompts, commits, issues, comentarios y docs es oro puro. Para código carácter-por-carácter, el teclado sigue ganando — por eso Dilo convive con él en vez de reemplazarlo.</p>
+      </details>
+    </section>
+
+    <!-- ══════════ CTA FINAL ══════════ -->
+    <section class="cta-final">
+      <p class="kicker" aria-hidden="true">$ dilo --instalar</p>
+      <h2 class="cta-big">Tu próximo prompt, <span class="hl">dícelo</span>.</h2>
+      <div class="cta-row">
+        <a id="download-btn-2" class="btn btn-primary" href="https://github.com/aacontn/dilo/releases/latest">Descargar Dilo</a>
+        <a class="btn btn-ghost" href="https://github.com/aacontn/dilo/releases/latest">Todas las descargas</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="foot-brand"><span class="wordmark wordmark-sm">dilo<span class="caret">▌</span></span></div>
+    <p>Dilo es un fork con cariño de <a href="https://github.com/cjpais/Handy" rel="noopener">Handy</a>, de CJ Pais (MIT). Gracias por la base espectacular. 💛</p>
+    <p class="foot-links">
+      <a href="https://github.com/aacontn/dilo" rel="noopener">GitHub</a> ·
+      <a href="https://github.com/aacontn/dilo/releases" rel="noopener">Releases</a> ·
+      <a href="https://github.com/aacontn/dilo/blob/main/LICENSE" rel="noopener">Licencia MIT</a>
+    </p>
+    <p class="foot-made">Hecho en Latinoamérica, para los que programan hablando. <span id="year"></span></p>
+  </footer>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
